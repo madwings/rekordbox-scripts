@@ -19,9 +19,14 @@ for track in root.findall('./COLLECTION/TRACK'):
             print('processing: ' + track.get('Name'))
             child = ET.Element('POSITION_MARK')
             child.set('Name', name)
-            child.set('Type', '0')
+            child.set('Type', position.get('Type')) # does not change type value
             child.set('Num', '-1')
             child.set('Start', start)
+            #gets end value
+            temp = position.get("End")
+            if temp:
+                child.set('End', temp)
+            
             track.append(child)
 
 tree.write(sys.argv[2], encoding='UTF-8', xml_declaration=True)
